@@ -15,6 +15,7 @@
         <property name="authService" ref="authService"/>
         <!--        setter metodini ishlatish-->
 
+
     </bean>
 
     <bean name="authService" class="org.example.service.AuthService">
