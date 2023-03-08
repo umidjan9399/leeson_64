@@ -2,12 +2,32 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:lang="http://www.springframework.org/schema/lang"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang.xsd">
+    <bean name="cardRepository" class="org.example.repository.CardRepository"/>
 
 
-    <bean name="profileService" class="org.example.service.ProfileService"/>
-    <bean name="terminalService" class="org.example.service.TerminalService"/>
+    <bean name="initdataBase" class="org.example.db.InitDataBase">
+        <property name="profileRepository" ref="profileRepository"/>
+        <property name="cardRepository" ref="cardRepository"/>
+    </bean>
+
+
+    <bean name="transactionRepository" class="org.example.repository.TransactionRepository"/>
+    <bean name="profileService" class="org.example.service.ProfileService">
+
+        <property name="profileRepository" ref="profileRepository"/>
+        <property name="cardService" ref="cardService"/>
+    </bean>
+    <bean name="terminalRepository" class="org.example.repository.TerminalRepository"/>
+
+    <bean name="terminalService" class="org.example.service.TerminalService">
+        <property name="terminalRepository" ref="terminalRepository"/>
+    </bean>
+
     <bean name="profileRepository" class="org.example.repository.ProfileRepository"/>
-    <bean name="transactionService" class="org.example.service.TransactionService"/>
+    <bean name="transactionService" class="org.example.service.TransactionService">
+
+        <property name="transactionRepository" ref="transactionRepository"/>
+    </bean>
 
 
     <bean name="cardService" class="org.example.service.CardService">
@@ -15,6 +35,7 @@
         <property name="transactionService" ref="transactionService"/>
         <property name="terminalService" ref="terminalService"/>
         <property name="profileService" ref="profileService"/>
+        <property name="cardRepository" ref="cardRepository"/>
     </bean>
 
 
@@ -28,6 +49,15 @@
         <property name="profileRepository" ref="profileRepository"/>
     </bean>
 
+    <bean name="profileController" class="org.example.controller.ProfileController">
+        <property name="cardService" ref="cardService"/>
+    </bean>
 
+    <bean name="adminController" class="org.example.controller.AdminController">
+        <property name="profileService" ref="profileService"/>
+        <property name="terminalService" ref="terminalService"/>
+        <property name="cardService" ref="cardService"/>
+
+    </bean>
 
 </beans>

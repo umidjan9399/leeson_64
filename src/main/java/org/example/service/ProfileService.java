@@ -1,7 +1,6 @@
 package org.example.service;
 
 
-import org.example.container.ComponentContainer;
 import org.example.dto.Profile;
 import org.example.enums.GeneralStatus;
 import org.example.repository.ProfileRepository;
@@ -10,8 +9,16 @@ import java.util.List;
 
 public class ProfileService {
 
-    private ProfileRepository profileRepository = new ProfileRepository();
-    private CardService cardService = ComponentContainer.cardService;
+    private ProfileRepository profileRepository ;
+    private CardService cardService ;
+
+    public void setProfileRepository(ProfileRepository profileRepository) {
+        this.profileRepository = profileRepository;
+    }
+
+    public void setCardService(CardService cardService) {
+        this.cardService = cardService;
+    }
 
     public void profileList() {
         List<Profile> profileList = profileRepository.getProfileList();

@@ -1,7 +1,6 @@
 package org.example.db;
 
 
-import org.example.container.ComponentContainer;
 import org.example.dto.Card;
 import org.example.dto.Profile;
 import org.example.enums.GeneralStatus;
@@ -14,8 +13,12 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class InitDataBase {
+     private ProfileRepository profileRepository ;
+   private  CardRepository cardRepository;
 
-    public static void adminInit() {
+
+
+    public  void adminInit() {
 
         Profile profile = new Profile();
         profile.setName("Admin");
@@ -27,7 +30,6 @@ public class InitDataBase {
         profile.setRole(ProfileRole.ADMIN);
 
 
-        ProfileRepository profileRepository = ComponentContainer.profileRepository;
 
         Profile profile1 = profileRepository.getProfileByPhone(profile.getPhone());
         if (profile1 != null) {
@@ -36,7 +38,7 @@ public class InitDataBase {
         profileRepository.saveProfile(profile);
     }
 
-    public static void addCompanyCard() {
+    public  void addCompanyCard() {
         Card card = new Card();
         card.setCardNumber("5555");
         card.setExpDate(LocalDate.of(2025, 12, 01));
@@ -46,12 +48,19 @@ public class InitDataBase {
         card.setCreatedDate(LocalDateTime.now());
         card.setStatus(GeneralStatus.ACTIVE);
 
-        CardRepository cardRepository = ComponentContainer.cardRepository;
         Card exists = cardRepository.getCardByNumber(card.getCardNumber());
 
         if (exists != null) {
             return;
         }
         cardRepository.save(card);
+    }
+
+    public void setCardRepository(CardRepository cardRepository) {
+        this.cardRepository = cardRepository;
+    }
+
+    public void setProfileRepository(ProfileRepository profileRepository) {
+        this.profileRepository = profileRepository;
     }
 }

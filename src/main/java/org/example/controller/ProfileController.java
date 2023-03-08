@@ -1,7 +1,6 @@
 package org.example.controller;
 
 
-
 import org.example.container.ComponentContainer;
 import org.example.dto.Profile;
 import org.example.service.CardService;
@@ -10,7 +9,11 @@ import org.example.util.ScannerUtil;
 import java.util.Scanner;
 
 public class ProfileController {
-    private CardService cardService = new CardService();
+    private CardService cardService;
+
+    public void setCardService(CardService cardService) {
+        this.cardService = cardService;
+    }
 
     public void start() {
         boolean b = true;
@@ -71,17 +74,17 @@ public class ProfileController {
 
         Scanner scanner = new Scanner(System.in);
         String cardNumber = scanner.nextLine();
-        Profile profile = ComponentContainer.currentProfile;
+        Profile profile = null;
         cardService.addCardToProfile(profile.getPhone(), cardNumber);
     }
 
-    private void cardList( ) {
+    private void cardList() {
         System.out.print("--- Card List ---");
         Profile profile = ComponentContainer.currentProfile;
         cardService.profileCardList(profile.getPhone());
     }
 
-    private void changeCardStatus( ) {
+    private void changeCardStatus() {
         System.out.print("Enter card number: ");
 
         Scanner scanner = new Scanner(System.in);
@@ -90,7 +93,7 @@ public class ProfileController {
         cardService.userChangeCardStatus(profile.getPhone(), cardNumber);
     }
 
-    private void deleteCard( ) {
+    private void deleteCard() {
         System.out.print("Enter card number: ");
         Scanner scanner = new Scanner(System.in);
         String cardNumber = scanner.nextLine();
@@ -99,7 +102,7 @@ public class ProfileController {
         cardService.userDeleteCard(profile.getPhone(), cardNumber);
     }
 
-    private void refill( ) {
+    private void refill() {
         System.out.print("Enter card number: ");
         Scanner scanner = new Scanner(System.in);
         String cardNumber = scanner.nextLine();

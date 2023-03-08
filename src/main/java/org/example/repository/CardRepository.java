@@ -236,8 +236,8 @@ public class CardRepository {
         try (Connection connection = DataBase.getConnection()) {
 
             PreparedStatement ps = connection.prepareStatement("update card set balance = ? where card_number = ?");
-                ps.setDouble(1, amount);
-                ps.setString(2, cardNum);
+            ps.setDouble(1, amount);
+            ps.setString(2, cardNum);
 
             return ps.executeUpdate();
 
