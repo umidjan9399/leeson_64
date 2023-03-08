@@ -1,28 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:lang="http://www.springframework.org/schema/lang"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang.xsd">
 
 
     <bean name="profileService" class="org.example.service.ProfileService"/>
-
+    <bean name="terminalService" class="org.example.service.TerminalService"/>
     <bean name="profileRepository" class="org.example.repository.ProfileRepository"/>
+    <bean name="transactionService" class="org.example.service.TransactionService"/>
+
+
+    <bean name="cardService" class="org.example.service.CardService">
+
+        <property name="transactionService" ref="transactionService"/>
+        <property name="terminalService" ref="terminalService"/>
+        <property name="profileService" ref="profileService"/>
+    </bean>
 
 
     <bean name="authController" class="org.example.controller.AuthController">
-
-
         <property name="authService" ref="authService"/>
         <!--        setter metodini ishlatish-->
-
-
     </bean>
+
 
     <bean name="authService" class="org.example.service.AuthService">
-
         <property name="profileRepository" ref="profileRepository"/>
-
     </bean>
+
 
 
 </beans>
