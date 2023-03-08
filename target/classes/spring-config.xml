@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+    <bean name="profileService" class="org.example.service.ProfileService"/>
+
+    <bean name="profileRepository" class="org.example.repository.ProfileRepository"/>
+
+
+    <bean name="authController" class="org.example.controller.AuthController">
+
+
+        <property name="authService" ref="authService"/>
+        <!--        setter metodini ishlatish-->
+
+    </bean>
+
+    <bean name="authService" class="org.example.service.AuthService">
+
+        <property name="profileRepository" ref="profileRepository"/>
+
+    </bean>
+
+
+</beans>
