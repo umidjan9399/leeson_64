@@ -13,11 +13,16 @@ import org.example.util.MD5Util;
 import java.time.LocalDateTime;
 
 public class AuthService {
-   private ProfileRepository profileRepository ;
+    private ProfileRepository profileRepository;
+    private AdminController adminController;
+    private ProfileController profileController;
 
-    public void setProfileRepository(ProfileRepository profileRepository) {
+    public AuthService(ProfileRepository profileRepository, AdminController adminController, ProfileController profileController) {
         this.profileRepository = profileRepository;
+        this.adminController = adminController;
+        this.profileController = profileController;
     }
+
 
     public AuthService() {
 
@@ -39,10 +44,10 @@ public class AuthService {
 
         ComponentContainer.currentProfile = profile;
         if (profile.getRole().equals(ProfileRole.ADMIN)) {
-            AdminController adminController = new AdminController();
+
             adminController.start();
         } else if (profile.getRole().equals(ProfileRole.USER)) {
-            ProfileController profileController = new ProfileController();
+
             profileController.start();
         } else {
             System.out.println("You don't have any role.");

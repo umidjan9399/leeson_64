@@ -4,13 +4,18 @@ import org.example.container.ComponentContainer;
 import org.example.dto.Profile;
 import org.example.service.AuthService;
 import org.example.util.ScannerUtil;
+import org.springframework.stereotype.Component;
 
 import java.util.Scanner;
 
+
+@Component
 public class AuthController {
-   private AuthService authService;
+    private AuthService auth;
 
-
+    public void init() {
+        System.out.println("AuthController after initialize");
+    }
 
     public void start() {
         boolean game = true;
@@ -31,6 +36,7 @@ public class AuthController {
             }
         }
     }
+
     public void menu() {
         System.out.println("********************Menu***********************");
         System.out.println("1. Login > ");
@@ -48,7 +54,7 @@ public class AuthController {
         String password = scanner.next();
 
 
-        authService.login(phone, password);
+        auth.login(phone, password);
     }
 
     private void registration() {
@@ -73,11 +79,11 @@ public class AuthController {
         profile.setPassword(password);
 
 
-
-        authService.registration(profile);
+        auth.registration(profile);
     }
-    public void setAuthService(AuthService authService) {
-        this.authService = authService;
+
+    public void setAuth(AuthService authService) {
+        this.auth = authService;
     }
 
 

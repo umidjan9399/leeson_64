@@ -7,9 +7,10 @@ import org.example.service.CardService;
 import org.example.service.ProfileService;
 import org.example.service.TerminalService;
 import org.example.util.ScannerUtil;
+import org.springframework.stereotype.Component;
 
 import java.util.Scanner;
-
+@Component
 public class AdminController {
     //    private CardService cardService = new CardService();
     private TerminalService terminalService ;
